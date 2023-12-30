@@ -35,6 +35,16 @@ public class BinaryTreesB {
             preorder(root.left);
             preorder(root.right);
         }
+
+        public static void inorder(Node root) {    // O(n) time complexity
+            if(root == null) {
+               // System.out.print(-1 + " "); // print as given input tree
+                return;
+            }
+            inorder(root.left);
+            System.out.print(root.data + " ");
+            inorder(root.right);
+        }
     }
 
     
@@ -45,6 +55,7 @@ public class BinaryTreesB {
         Node root = tree.buildTree(nodes);
         //print the root data
         // System.out.println(root.data);
-        tree.preorder(root);
+        // tree.preorder(root);
+        tree.inorder(root);
     }
 }
