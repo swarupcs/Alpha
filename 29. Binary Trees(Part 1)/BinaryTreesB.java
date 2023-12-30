@@ -6,8 +6,8 @@ public class BinaryTreesB {
 
         Node(int data) {
             this.data = data;
-            this.right = right;
-            this.left = left;
+            this.right = null;
+            this.left = null;
         }
     }
 
@@ -25,13 +25,26 @@ public class BinaryTreesB {
 
             return newNode;
         }
+
+        public static void preorder(Node root) {    // O(n) time complexity
+            if(root == null) {
+               // System.out.print(-1 + " "); // print as given input tree
+                return;
+            }
+            System.out.print(root.data + " ");
+            preorder(root.left);
+            preorder(root.right);
+        }
     }
+
+    
 
     public static void main(String[] args) {
         int nodes[] = {1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1};
-
         BinaryTree tree = new BinaryTree();
         Node root = tree.buildTree(nodes);
-        System.out.println(root.data);
+        //print the root data
+        // System.out.println(root.data);
+        tree.preorder(root);
     }
 }
