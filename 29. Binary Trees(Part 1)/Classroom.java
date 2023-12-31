@@ -57,6 +57,32 @@ public class Classroom {
         return Math.max(selfDiam, Math.max(leftDiam, rightDiam));
     }
 
+    //Diameter Approach 2
+    static class Info {
+        int diam;
+        int ht; 
+
+        public Info(int diam, int ht) {
+            this.diam = diam;
+            this.ht = ht;
+        }
+    }
+    public static Info diameter2(Node root) {           //O(N)
+
+        if(root == null) {
+            return new Info(0, 0);
+        }
+
+        Info leftInfo =  diameter2(root.left);
+        Info rightInfo = diameter2(root.right);
+
+        int diam = Math.max(Math.max(leftInfo.diam, rightInfo.diam), leftInfo.ht + rightInfo.ht + 1);
+        int ht = Math.max(leftInfo.ht, rightInfo.ht) + 1;
+
+        return new Info(diam, ht);
+
+    }
+
     public static void main(String args[]) {
         /*
                     1
@@ -79,6 +105,7 @@ public class Classroom {
         // System.out.println(count(root));
 
         // System.out.println(sum(root));
-        System.out.println(diameter(root));
+        // System.out.println(diameter(root));
+        System.out.println(diameter2(root).diam);
     }
 }
