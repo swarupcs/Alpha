@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Classroom {
     static class Node {
         int data;
@@ -27,6 +29,63 @@ public class Classroom {
 
         return true;
     }
+
+    //Top View
+    static class Info {
+        Node node;
+        int hd;     //horizontal distance
+
+        public Info(Node node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+
+    public static void topView(Node root) {
+        //Level Order traversal
+        Queue<Info> q = new LinkedList<>();
+        HashMap<Integer, Node> map = new HashMap<>();
+
+        int min = 0, max = 0;
+        //add Info object of root
+        //by default horizontal distance of root node is 0
+        q.add(new Info(root, 0));
+        q.add(null);
+
+        while (!q.isEmpty()) {
+            Info curr = q.remove();
+            if(curr == null) {
+                if(q.isEmpty()) {
+                    break;
+                } else {
+                    q.add(null);
+                }
+            } else {              
+                if(!map.containsKey(curr.hd)) {     //first time hd is occuring
+                    map.put(curr.hd, curr.node);
+                }
+
+                if(curr.node.left != null) {
+                    q.add(new Info(curr.node.left, curr.hd - 1));
+                    min = Math.min(min, curr.hd-1);
+                }
+
+                if(curr.node.right != null) {
+                    q.add(new Info(curr.node.right, curr.hd+1));
+                    max = Math.max(max, curr.hd+1);
+                }
+            }
+
+        }
+
+        for(int i=min; i<= max; i++) {
+            System.out.print(map.get(i).data + " ");
+        }
+        System.out.println();
+
+
+    }
+
 
     public static boolean isSubtree(Node root, Node subRoot) {
 
@@ -69,7 +128,9 @@ public class Classroom {
          subRoot.left = new Node(4);
          subRoot.right = new Node(5);
 
-         System.out.println(isSubtree(root, subRoot));
+        //  System.out.println(isSubtree(root, subRoot));
+
+        topView(root);
 
 
     }
